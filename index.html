@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Classifier</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .iframe-container {
+            flex: 1; /* Allow the iframe to take up remaining space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px; /* Optional rounded corners */
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .api-key-container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .note {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Fake News Classifier - Powered by Hugging Face
+    </header>
+
+    <div id="apiKeySection" class="api-key-container">
+        <h3>Please enter your Hugging Face API Key</h3>
+        <input type="text" id="hfApiKey" placeholder="Enter API Key" />
+        <button onclick="checkApiKey()">Submit</button>
+        <p class="note" id="note"></p>
+    </div>
+
+    <div id="iframeSection" class="iframe-container" style="display:none;">
+        <iframe id="iframe" src="https://andryha-fakenewsclassifier.hf.space" frameborder="0"></iframe>
+    </div>
+
+    <footer>
+        For more information, visit the <a href="https://huggingface.co/spaces/andryha/fakenewsclassifier" target="_blank">Hugging Face Space</a>.
+    </footer>
+
+    <script>
+        function checkApiKey() {
+            const apiKey = document.getElementById('hfApiKey').value.trim();
+
+            if (!apiKey) {
+                document.getElementById('note').innerText = 'API key is required. Please get one from Hugging Face.';
+                window.location.href = 'https://huggingface.co/docs/huggingface_hub/how-to-authenticate'; // Redirect to the Hugging Face API key page
+            } else {
+                localStorage.setItem('hfApiKey', apiKey); // Store the API key locally (you can use it later for API calls)
+                document.getElementById('apiKeySection').style.display = 'none';
+                document.getElementById('iframeSection').style.display = 'flex';
+            }
+        }
+    </script>
+</body>
+</html>
